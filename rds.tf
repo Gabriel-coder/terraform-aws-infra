@@ -17,19 +17,22 @@ resource "aws_db_instance" "example" {
   }
 }
 # Create a DB subnet group for the RDS instance
-resource "aws_db_subnet_group" "example" {
-  name       = "example-db-subnet-group"
-  subnet_ids = [aws_subnet.private.id,
-  aws_subnet.private_b.id]
+resource "aws_db_instance" "example" {
+  identifier              = "example-db"
+  engine                  = "mysql"
+  engine_version          = "8.0.28"              # ou versão compatível
+  instance_class          = "db.t2.micro"         # ou db.t3.micro se preferir
+  allocated_storage       = 20
+  storage_type            = "gp2"
+  db_subnet_group_name    = aws_db_subnet_group.example.name
+  vpc_security_group_ids  = [aws_security_group.example.id]
+  username                = "admin"
+  password                = var.db_password
+  skip_final_snapshot     = true
+
   tags = {
-    Name = "ExampleDBSubnetGroup"
+    Name = "ExampleDBInstance"
   }
 }
 
-resource "aws_subnet" "private_b" {
-  vpc_id            = aws_vpc.example.id
-  cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1b"
-  map_public_ip_on_launch = false
-}
 
