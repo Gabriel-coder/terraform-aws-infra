@@ -1,0 +1,35 @@
+name: Terraform Deploy
+
+on:
+  workflow_dispatch:  # permite rodar manualmente no GitHub
+
+jobs:
+  terraform:
+    name: "Terraform CI"
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      - name: Init
+        run: terraform init
+
+      - name: Validate
+        run: terraform validate
+
+      - name: Plan
+        run: terraform plan
+
+      - name: Apply (manual)
+        if: github.event_name == 'workflow_dispatch'
+        run: terraform apply -auto-approve
