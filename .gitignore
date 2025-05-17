@@ -1,0 +1,19 @@
+# Ignore arquivos de estado do Terraform
+*.tfstate
+*.tfstate.backup
+crash.log
+crash.*.log
+
+# Diretório de plugins e providers (recriado com `terraform init`)
+.terraform/
+
+# Arquivos de plano
+*.plan
+plan.out
+
+# SSH keys (caso estejam no projeto)
+*.pem
+
+# Arquivos locais e do VSCode
+.vscode/
+*.log
