@@ -14,7 +14,7 @@ resource "aws_db_subnet_group" "example" {
 resource "aws_db_instance" "example" {
   identifier              = "example-db"
   engine                  = "mysql"
-  engine_version          = "8.0.28"
+  engine_version          = "8.0.35"
   instance_class          = "db.t2.micro"
   allocated_storage       = 20
   storage_type            = "gp2"
