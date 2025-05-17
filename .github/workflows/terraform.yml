@@ -1,12 +1,12 @@
 name: Terraform Deploy
 
 on:
-  workflow_dispatch:  # permite rodar manualmente no GitHub
+  workflow_dispatch:
 
 jobs:
   terraform:
-    name: "Terraform CI"
     runs-on: ubuntu-latest
+    name: Terraform CI
 
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -26,15 +26,15 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Init
+      - name: Terraform Init
         run: terraform init
 
-      - name: Validate
+      - name: Terraform Validate
         run: terraform validate
 
-      - name: Plan
+      - name: Terraform Plan
         run: terraform plan
 
-      - name: Apply (manual)
+      - name: Terraform Apply
         if: github.event_name == 'workflow_dispatch'
         run: terraform apply -auto-approve
