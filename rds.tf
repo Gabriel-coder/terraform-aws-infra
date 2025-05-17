@@ -1,16 +1,3 @@
-# Subnet Group do RDS (com nome novo para evitar conflito)
-resource "aws_db_subnet_group" "example" {
-  name       = "example-db-subnet-group-v2"
-  subnet_ids = [
-    aws_subnet.private.id,
-    aws_subnet.private_b.id
-  ]
-  tags = {
-    Name = "ExampleDBSubnetGroup"
-  }
-}
-
-# Instância RDS
 resource "aws_db_instance" "example" {
   identifier              = "example-db"
   engine                  = "mysql"
