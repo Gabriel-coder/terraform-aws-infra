@@ -19,8 +19,17 @@ resource "aws_db_instance" "example" {
 # Create a DB subnet group for the RDS instance
 resource "aws_db_subnet_group" "example" {
   name       = "example-db-subnet-group"
-  subnet_ids = [aws_subnet.private.id]
+  subnet_ids = [aws_subnet.private.id,
+  aws_subnet.private_b.id]
   tags = {
     Name = "ExampleDBSubnetGroup"
   }
 }
+
+resource "aws_subnet" "private_b" {
+  vpc_id            = aws_vpc.example.id
+  cidr_block        = "10.0.3.0/24"
+  availability_zone = "us-east-1b"
+  map_public_ip_on_launch = false
+}
+
