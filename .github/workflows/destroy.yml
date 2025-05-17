@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./infra_destroy
+        working-directory: .
 
     steps:
       - name: Checkout do código
