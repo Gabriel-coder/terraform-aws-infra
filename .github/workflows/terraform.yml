@@ -1,12 +1,12 @@
 name: Terraform Deploy
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # permite execução manual
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
     name: Terraform CI
+    runs-on: ubuntu-latest
 
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -27,14 +27,28 @@ jobs:
           terraform_version: 1.6.6
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          echo "🧱 Iniciando Terraform"
+          terraform init
 
       - name: Terraform Validate
-        run: terraform validate
+        run: |
+          echo "🔍 Validando arquivos Terraform"
+          terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
+        run: |
+          echo "🚀 Exportando variáveis AWS e rodando o plano"
+          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          export AWS_REGION=us-east-1
+          terraform plan
 
       - name: Terraform Apply
         if: github.event_name == 'workflow_dispatch'
-        run: terraform apply -auto-approve
+        run: |
+          echo "⚠️ Aplicando infraestrutura (auto-approve)"
+          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          export AWS_REGION=us-east-1
+          terraform apply -auto-approve
