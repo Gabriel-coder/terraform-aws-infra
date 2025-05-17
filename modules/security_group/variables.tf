@@ -1,4 +1,4 @@
-variable "security_group_ids" {
-  description = "Lista de IDs de security groups"
-  type        = list(string)
+variable "vpc_id" {
+  description = "ID da VPC"
+  type        = string
 }
