@@ -1,3 +1,16 @@
+# Subnet Group necessário para o RDS funcionar corretamente
+resource "aws_db_subnet_group" "example" {
+  name       = "example-db-subnet-group-v4"  # use outro nome se houver conflito
+  subnet_ids = [
+    aws_subnet.private.id,
+    aws_subnet.private_b.id
+  ]
+  tags = {
+    Name = "ExampleDBSubnetGroup"
+  }
+}
+
+# Instância RDS MySQL
 resource "aws_db_instance" "example" {
   identifier              = "example-db"
   engine                  = "mysql"
