@@ -26,10 +26,11 @@ jobs:
         with:
           terraform_version: 1.6.6
 
+      - name: Mostrar arquivos disponíveis
+        run: ls -l
+
       - name: Terraform Init
-        run: |
-          terraform init
+        run: terraform init
 
       - name: Terraform Destroy
-        run: |
-          terraform destroy -auto-approve -var-file="terraform.tfvars"
+        run: terraform destroy -auto-approve -var-file="terraform.tfvars"
