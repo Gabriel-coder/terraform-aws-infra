@@ -1,7 +1,7 @@
 name: Terraform Destroy
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Permite executar manualmente no GitHub
 
 jobs:
   destroy:
