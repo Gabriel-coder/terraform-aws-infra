@@ -1,6 +1,6 @@
 # Ignore arquivos de estado do Terraform
-*.tfstate
-*.tfstate.backup
+#*.tfstate
+#*.tfstate.backup
 crash.log
 crash.*.log
 
